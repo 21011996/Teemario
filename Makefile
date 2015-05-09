@@ -12,7 +12,3 @@ test: test.o all
 biginteger.o: biginteger.asm
 	yasm biginteger.asm $(YASM_FLAGS) -o biginteger.o
 
-clean:
-	rm *.o
-	rm ./test
-	rm *.a

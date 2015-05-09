@@ -25,34 +25,6 @@ void test1() {
     bool ok = 1;
 
     BigInt a, b, c;
-
-    a = biFromInt(15);
-    ok &= check(biSign(a) == 1);
-    b = biCopy(a);
-    ok &= check(biSign(b) == 1);
-    c = biAddNew(a, b);
-    ok &= check(biSign(c) == 1);
-    biDelete(a);
-    biDelete(b);
-    biDelete(c);
-
-    a = biFromInt(0);
-    ok &= check(biSign(a) == 0);
-    biDelete(a);
-
-    a = biFromInt(-1000000000000LL);
-    ok &= check(biSign(a) == -1);
-    biDelete(a);
-
-    check(ok, 1);
-}
-
-void test2() {
-    cout << "test 2: ";
-    cout.flush();
-    bool ok = 1;
-
-    BigInt a, b, c;
     a = biFromInt(2);
     b = biFromInt(3);
     biAdd(a, b);
@@ -65,8 +37,8 @@ void test2() {
     check(ok, 1);
 }
 
-void test3() {
-    cout << "test 3: ";
+void test2() {
+    cout << "test 2: ";
     cout.flush();
     bool ok = 1;
 
@@ -111,62 +83,8 @@ void test3() {
     check(ok, 1);
 }
 
-void test4(int n) {
-    cout << "test 4: ";
-    cout.flush();
-    bool ok = 1;
-
-    vector<unsigned long long> v(n);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < 63; j++) {
-            v[i] += ((unsigned long long)(rand() % 2)) << j;
-        }
-    }
-
-    BigInt sum = biFromInt(0);
-    for (int i = 0; i < n; i++) {
-        BigInt x = biFromInt(v[i]);
-        biAdd(sum, x);
-        biDelete(x);
-    }
-    vector<BigInt> l(n), r(n);
-    l[0] = biFromInt(v[0]);
-    r[n - 1] = biFromInt(v[n - 1]);
-    for (int i = 1; i < n; i++) {
-        BigInt x = biFromInt(v[i]);
-        l[i] = biAddNew(x, l[i - 1]);
-        biDelete(x);
-    }
-    for (int i = n - 2; i >= 0; i--) {
-        BigInt x = biFromInt(v[i]);
-        r[i] = biAddNew(x, r[i + 1]);
-        biDelete(x);
-    }
-    
-    for (int i = 0; i + 1 < n; i++) {
-        BigInt x;
-        x = biAddNew(l[i], r[i + 1]);
-        ok &= check(biCmp(x, sum) == 0);
-        biDelete(x);
-        x = biSubNew(sum, r[i + 1]);
-        ok &= check(biCmp(x, l[i]) == 0);
-        biDelete(x);
-        x = biSubNew(sum, l[i]);
-        ok &= check(biCmp(x, r[i + 1]) == 0);
-        biDelete(x);
-    }
-
-    biDelete(sum);
-    for (int i = 0; i < n; i++) {
-        biDelete(l[i]);
-        biDelete(r[i]);
-    }
-
-    check(ok, 1);
-}
-
-void test5() {
-    cout << "test 5: ";
+void test3() {
+    cout << "test 3: ";
     cout.flush();
     bool ok = 1;
 
@@ -212,64 +130,11 @@ void test5() {
     check(ok, 1);
 }
 
-void test6() {
-    cout << "test 6: ";
-    cout.flush();
-    bool ok = 1;
-
-    int n = 100;
-    vector<string> v(n);
-    for (int i = 0; i < n; i++) {
-        v[i] = genRandNumber(1000);
-    }
-
-    BigInt sum = biFromInt(0);
-    for (int i = 0; i < n; i++) {
-        BigInt x = biFromString(v[i].c_str());
-        biAdd(sum, x);
-        biDelete(x);
-    }
-    vector<BigInt> l(n), r(n);
-    l[0] = biFromString(v[0].c_str());
-    r[n - 1] = biFromString(v[n - 1].c_str());
-    for (int i = 1; i < n; i++) {
-        BigInt x = biFromString(v[i].c_str());
-        l[i] = biAddNew(x, l[i - 1]);
-        biDelete(x);
-    }
-    for (int i = n - 2; i >= 0; i--) {
-        BigInt x = biFromString(v[i].c_str());
-        r[i] = biAddNew(x, r[i + 1]);
-        biDelete(x);
-    }
-    
-    for (int i = 0; i + 1 < n; i++) {
-        BigInt x;
-        x = biAddNew(l[i], r[i + 1]);
-        ok &= check(biCmp(x, sum) == 0);
-        biDelete(x);
-        x = biSubNew(sum, r[i + 1]);
-        ok &= check(biCmp(x, l[i]) == 0);
-        biDelete(x);
-        x = biSubNew(sum, l[i]);
-        ok &= check(biCmp(x, r[i + 1]) == 0);
-        biDelete(x);
-    }
-
-    biDelete(sum);
-    for (int i = 0; i < n; i++) {
-        biDelete(l[i]);
-        biDelete(r[i]);
-    }
-
-    check(ok, 1);
-}
-
 const int size = 100000;
 char c[size];
 
-void test7() {
-    cout << "test 7: ";
+void test4() {
+    cout << "test 4: ";
     cout.flush();
     bool ok = 1;
 
@@ -319,7 +184,7 @@ void test7() {
     check(ok, 1);
 }
 
-void test8(int test, int cnt, int iters, int len) {
+void test5(int test, int cnt, int iters, int len) {
     cout << "test " << test << ": ";
     cout.flush();
     bool ok = 1;
@@ -364,8 +229,8 @@ void test8(int test, int cnt, int iters, int len) {
     check(ok, 1);
 }
 
-void test9() {
-    cout << "test 9: ";
+void test6() {
+    cout << "test 6: ";
     cout.flush();
     bool ok = 1;
 
@@ -422,8 +287,8 @@ void test9() {
     check(ok, 1);
 }
 
-void test11() {
-    cout << "test 11: ";
+void test8() {
+    cout << "test 8: ";
     cout.flush();
     bool ok = 1;
 
@@ -473,8 +338,8 @@ void test11() {
     check(ok, 1);
 }
 
-void test12() {
-    cout << "test 12: ";
+void test9() {
+    cout << "test 9: ";
     cout.flush();
     bool ok = 1;
 
@@ -485,8 +350,8 @@ void test12() {
     check(ok, 1);
 }
 
-void test13() {
-    cout << "test " << 13 << ": ";
+void test10() {
+    cout << "test " << 10 << ": ";
     cout.flush();
     bool ok = 1;
 
@@ -551,8 +416,8 @@ void testDelete(string s1, string s2, bool &ok) {
     biDelete(y);
 }
 
-void test14() {
-    cout << "test 14: ";
+void test11() {
+    cout << "test 11: ";
     cout.flush();
     bool ok = 1;
 
@@ -605,8 +470,8 @@ void test14() {
     check(ok, 1);
 }
 
-void test15(int iterations, int size) {
-    cout << "test 15: ";
+void test12(int iterations, int size) {
+    cout << "test 12: ";
     cout.flush();
     bool ok = 1;
 
@@ -617,81 +482,18 @@ void test15(int iterations, int size) {
     check(ok, 1);
 }
 
-void test16(int iters, int n, int len) {
-    cout << "test 16: ";
-    cout.flush();
-    bool ok = 1;
-
-    vector<BigInt> v(n);
-    vector<mpz_class> g(n);
-    for (int i = 0; i < n; i++) {
-        string s = genRandNumber(len);
-        v[i] = biFromString(s.c_str());
-        g[i] = 0;
-        g[i] += mpz_class(s);
-    }
-
-    for (int it = 0; it < iters; it++) {
-        int k = rand() % 4;
-        int i = rand() % n;
-        int j = rand() % n;
-        if (k == 0) {
-            g[i] += g[j];
-            biAdd(v[i], v[j]);
-        } else
-        if (k == 1) {
-            g[i] -= g[j];
-            biSub(v[i], v[j]);
-        } else
-        if (k == 2) {
-            g[i] *= g[j];
-            biMul(v[i], v[j]);
-        } else {
-            int o = rand() % 2;
-            if (g[j] == 0) continue;
-            BigInt x, y;
-            biDivRem(&x, &y, v[i], v[j]);
-            mpz_class x1, x2;
-            gmpDivision(g[i], g[j], x1, x2);
-            if (o == 0) {
-                g[i] = x1;
-                swap(v[i], x);
-            } else
-            if (o == 1) {
-                g[i] = x2;
-                swap(v[i], y);
-            }
-            biDelete(x);
-            biDelete(y);
-        }
-        biToString(v[i], c, size);
-        string s = g[i].get_str();
-        ok &= check((string)(c) == s);
-    }
-    for (int i = 0; i < n; i++) {
-        biDelete(v[i]);
-    }
-
-    check(ok, 1);
-}
-
 int main() {
     test1();
     test2();
     test3();
-    test4(2);
-    test4(1000);
-    test5();
+    test4();
+    test5(5, 2, 1000, 1000);
     test6();
-    test7();
-    test8(8, 2, 1000, 1000);
+    test5(7, 3, 100, 200);
+    test8(); 
     test9();
-    test8(10, 3, 100, 200);
-    test11(); 
-    test12();
-    test13();
-    test14();
-    test15(1000, 100);
-    test16(3000, 500, 100);
+    test10();
+    test11();
+    test12(1000, 100);
     return 0;
 }
